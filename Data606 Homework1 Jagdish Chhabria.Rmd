@@ -1,0 +1,202 @@
+---
+title: "Data606 Homework 1"
+author: "Jagdish Chhabria"
+date: "January 31, 2019"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r setup, include=FALSE}
+#'https://cran.r-project.org/package=openintro')
+#install.packages("heartTr", repos = 'https://cran.r-project.org/package=openintro')
+#data(package = 'openintro')
+install.packages("openintro")
+library(openintro)
+data("smoking")
+```
+
+# Graded: 1.8, 1.10, 1.28, 1.36, 1.48, 1.50, 1.56, 1.70 (use the library(openintro); data(heartTr) to load the data)
+
+# Chapter 1 - Introduction to Data, Problem 1.8
+
+```{r}
+str(smoking)
+```
+
+(a) What does each row of the data matrix represent?
+
+Each row represents a UK resident who participated in the survey.
+
+(b) How many participants were included in the survey?
+
+1691 participants were included in the survey.
+
+(c) Indicate whether each variable in the study is numerical or categorical. If numerical, identify as continuous or discrete. If categorical, indicate if the variable is ordinal.
+
+sex: Categorical
+age: Numerical discrete
+marital: Categorical 
+grossIncome: Categorical ordinal
+smoke: Categorical
+amtWeekends: Numerical discrete
+amtWeekdays: Numerical discrete
+
+
+# Chapter 1 - Introduction to Data, Problem 1.10
+
+(a) Identify the population of interest and the sample in this study.
+The population of interest is children between the age of 5 and 15 years.The sample is 160 children chosen for the experiment.
+
+(b) Comment on whether or not the results of the study can be generalized to the population, and if the findings of the study can be used to establish causal relationships.
+
+The findings of the study can be generalized to the population depending on the extent of randomization. It is possible that the attitudes towards cheating are dependent on factors other than age and gender, such as family income, education and geography.So the ability to select a truly random sample that controls for the effect of such confounding variables would determine the extent to which the results of the study can be used to establish causal relationships.A sample size of 160 also seems quite small given the nature of the study.
+
+
+# Chapter 1 - Introduction to Data, Problem 1.28
+A friend of yours who read the article says, "The study shows that sleep disorders lead to
+bullying in school children." Is this statement justified? If not, how best can you describe the conclusion that can be drawn from this study?
+
+I don't think this statement is justified because it implies a causal relationship between sleep disorders and bullying behavior in children, based on a restrospective, observational study. Given that the survey is voluntary, the choice of sample particpants, sample size and the extent of randomization would impact the results. Based on the details given about the study, it seems that there may be an association between sleeping disorders and bullying behavior in children, but not a causal relationship and that too, not a "reverse" one as implied by the title "The school bully is sleepy". 
+
+
+# Chapter 1 - Introduction to Data, Problem 1.36
+(a) What type of study is this?
+
+This is a prospective, experimental study.
+
+(b) What are the treatment and control groups in this study?
+
+The treatment and control groups in this study are 2 equal-sized samples, each containing a stratum from 3 different age groups.The treatment group is the one instructed to exercise twice a week, and the control group is the one instructed to not exercise.
+
+(c) Does this study make use of blocking? If so, what is the blocking variable?
+
+Yes, the study attempts to block the potential impact of the participant's age, by dividing the sample into 3 age-based strata.
+
+(d) Does this study make use of blinding?
+
+No, according to the details provided, the study does not make sure of blinding.
+
+(e) Comment on whether or not the results of the study can be used to establish a causal relationship between exercise and mental health, and indicate whether or not the conclusions can be generalized to the population at large.
+
+At first glance, it does seem that the results of the study can be used to establish a causal relationship between exercise and mental health given that it is an observational study that relies on randomization and using strata to block the impact of age on mental health. 
+However, the sample size and the presence of confounding variables such as social interaction based on number of friends and family memebrs in close proximity to study participants, would impact the ability to generalize the conclusions of the study to the population at large.
+
+(f) Suppose you are given the task of determining if this proposed study should get funding.
+Would you have any reservations about the study proposal?
+
+Before determining whether the study should get funding, I'd like to:
+i) understand the cost/benefit trade-off between the proposed stratified sampling and potentially cluster sampling.
+ii) sample size and how it was determined.
+iii) duration of the study i.e. what is the length of time between the mental health assessment  at the start and the end of the study, and whether it seems long enough to have a meaningful impact.
+iv) duration of each exercise session of the participants in the treatment group, and whether it is long enough to be meaningful.
+v) whether any of the participants have a history of mental health issues.
+vi) whether any of the participants have a history of regularly exercising more frequently than twice a week, before the study.
+
+
+# Chapter 1 - Introduction to Data, Problem 1.48
+Below are the final exam scores of twenty introductory statistics students.
+57, 66, 69, 71, 72, 73, 74, 77, 78, 78, 79, 79, 81, 81, 82, 83, 83, 88, 89, 94
+Create a box plot of the distribution of these scores.
+
+```{r}
+scores <- c(57,66,69,71,72,73,74,77,78,78,79,79,81,81,82,83,83,88,89,94)
+boxplot(scores, main="scores", ylab="scores")
+boxplot.stats(scores)
+fivenum(scores)
+
+```
+
+
+# Chapter 1 - Introduction to Data, Problem 1.50
+Describe the distribution in the histograms below and match them to the box plots.
+
+a) The distribution shown in this histogram seems nearly normal. It is unimodal and more or less evenly spread on both sides of the peak. It corresponds to the boxplot shown in (2).
+
+b) The distribution shown in this histogram seems like a uniform distribution. It is multi-modal. It corresponds to the boxplot shown in (3).
+
+c) The distribution shown in this histogram is rightly skewed. It has a few outliers extending on the right-side of the distribution. It corresponds to the boxplot shown in (1).
+
+
+# Chapter 1 - Introduction to Data, Problem 1.56
+For each of the following, state whether you expect the distribution to be symmetric, right skewed, or left skewed. Also specify whether the mean or median would best represent a typical observation in the data, and whether the variability of observations would be best represented using the standard deviation or IQR.
+Explain your reasoning.
+(a) Housing prices in a country where 25% of the houses cost below $350,000, 50% of the houses
+cost below $450,000, 75% of the houses cost below $1,000,000 and there are a meaningful
+number of houses that cost more than $6,000,000.
+
+This is a right-skewed distribution. The left-side is floored at almost zero. The median and IQR would be better representatives of the center and variability of the distribution.
+
+(b) Housing prices in a country where 25% of the houses cost below $300,000, 50% of the houses
+cost below $600,000, 75% of the houses cost below $900,000 and very few houses that cost
+more than $1,200,000.
+
+This is a near-symmetric distribution. The left-side is floored at almost zero.The mean and standard deviation would be better representatives of the center and variability of the distribution.
+
+(c) Number of alcoholic drinks consumed by college students in a given week. Assume that most of these students don't drink since they are under 21 years old, and only a few drink excessively.
+
+This is a right-skewed distribution. The left-side is floored at zero, and there are a few outliers to the right. The median and IQR would be better representatives of the center and variability of the distribution.
+
+(d) Annual salaries of the employees at a Fortune 500 company where only a few high level
+executives earn much higher salaries than all the other employees.
+
+This is a right-skewed distribution. The left-side is floored at almost zero. The median and IQR would be better representatives of the center and variability of the distribution.
+
+
+# Chapter 1 - Introduction to Data, Problem 1.70
+(a) Based on the mosaic plot, is survival independent of whether or not the patient got a transplant? Explain your reasoning.
+
+Based on the mosaic plot, it seems that survival is not independent of transplant, because the proportion of survivors in the treatment group at 34.78% is 2.6 times the proportion of survivors in the control group at 13.33%.
+
+(b) What do the box plots below suggest about the efficacy (effectiveness) of the heart transplant treatment?
+
+The boxplot shows several outliers in the control group compared to the treatment group. The median number of survival days of the treatment group is 207 days and the IQR is 558 days, compared to 21 days and 44 days respectively.
+So the efficacy of the treatment seems to be significantly different from zero.
+```{r}
+data(heartTr)
+treatment_surv_days<-fivenum(subset(heartTr$survtime, heartTr$transplant=='treatment'))
+print(treatment_surv_days)
+control_surv_days<-fivenum(subset(heartTr$survtime, heartTr$transplant=='control'))
+print(control_surv_days)
+#str(heartTr)
+#boxPlot(heartTr$survtime, heartTr$transplant)
+#mosaicplot(~ transplant + survived, data = heartTr)
+
+```
+
+
+(c) What proportion of patients in the treatment group and what proportion of patients in the
+control group died?
+
+The proportion of treatment patients that died is 65.22% and the proportion of control patients that died is 88.24%. The difference in the 2 proportions is -23.02%.
+
+(d) One approach for investigating whether or not the treatment is effective is to use a randomization technique.
+i. What are the claims being tested?
+
+The claims being tested can be stated in the form of the following hypothesis:
+Null Hypothesis: The transplant treatment has no effect on survival. The observed higher survival rate is due to chance.
+Alternative Hypothesis: The transplant treatment has effect on patient survival. The observed higher survival rate is not due to chance.
+
+
+ii. The paragraph below describes the set up for such approach, if we were to do it without
+using statistical software. Fill in the blanks with a number or phrase, whichever is
+appropriate.
+
+We write alive on _28_ cards representing patients who were alive at
+the end of the study, and dead on _75_ cards representing patients
+who were not. Then, we shuffle these cards and split them into two groups:
+one group of size _69_ representing treatment, and another group of
+size _34_ representing control. We calculate the difference between
+the proportion of dead cards in the treatment and control groups (treatment -
+control) and record this value. We repeat this 100 times to build a distribution
+centered at _0_ . Lastly, we calculate the fraction of simulations where
+the simulated differences in proportions are _less than -23.02%_ . If this fraction is low,
+we conclude that it is unlikely to have observed such an outcome by chance and
+that the null hypothesis should be rejected in favor of the alternative.
+
+
+iii. What do the simulation results shown below suggest about the effectiveness of the transplant program?
+
+The simulation results show that only about 2 out of the 100 trials result in a difference greater than 0.230179, in the proportion of dead patients between the control and treatment groups. So the chance of observing such a difference is only about ~ 2% i.e. very unlikely. Based on the confidence level required, the null hypothesis would likely be rejected in favor of the alternative hypothesis.
+
+
+

@@ -1,0 +1,42 @@
+---
+title: "Data607_Assignment_1"
+author: "Jagdish Chhabria"
+date: "February 2, 2019"
+output: html_document
+---
+
+```{r}
+theURL<-"https://raw.githubusercontent.com/Jagdish16/jagdish_r_repo/master/mushrooms.csv"
+mushrooms<-read.table(file=theURL, header=TRUE, sep=",",quote="\"")
+#summary(mushrooms)
+#str(mushrooms)
+mushrooms_new<-data.frame(mushrooms$class, mushrooms$cap.color, mushrooms$gill.spacing, mushrooms$gill.size)
+colnames(mushrooms_new)<-c("class", "color", "spacing", "size")
+levels(mushrooms_new$class)[match("e",levels(mushrooms_new$class))]<-"edible"
+levels(mushrooms_new$class)[match("p",levels(mushrooms_new$class))]<-"poisonous"
+#nlevels(mushrooms_new$color)
+#levels(mushrooms_new$color)
+#for (i in seq(1, nlevels(mushrooms_new$color))) {}
+#gill-spacing #close=c,crowded=w,distant=d
+#gill-size #broad=b,narrow=n
+#levels(mushrooms_new$color)#brown=n,buff=b,cinnamon=c,gray=g,green=r,pink=p,purple=u,red=e,white=w,yellow=y
+
+  levels(mushrooms_new$color)[1]<-"buff"
+  levels(mushrooms_new$color)[2]<-"cinammon"
+  levels(mushrooms_new$color)[3]<-"red"
+  levels(mushrooms_new$color)[4]<-"gray"
+  levels(mushrooms_new$color)[5]<-"brown"
+  levels(mushrooms_new$color)[6]<-"pink"
+  levels(mushrooms_new$color)[7]<-"green"
+  levels(mushrooms_new$color)[8]<-"purple"
+  levels(mushrooms_new$color)[9]<-"white"
+  levels(mushrooms_new$color)[10]<-"yellow"
+  levels(mushrooms_new$spacing)[1]<-"close"
+  levels(mushrooms_new$spacing)[2]<-"crowded"
+  levels(mushrooms_new$size)[1]<-"broad"
+  levels(mushrooms_new$size)[2]<-"narrow"
+
+mushrooms_new
+#summary(mushrooms_new)
+```
+
