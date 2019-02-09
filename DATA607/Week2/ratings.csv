@@ -1,0 +1,37 @@
+movie_name, rater_firstname, rater_lastname, rating
+"Black Panther","Mighty","Mango",1
+"Black Panther","Working","Banana",1
+"Black Panther","Sweet","Strawberry",2
+"Black Panther","Moody","Melon",2
+"Black Panther","Klever","Kiwi",3
+"Black Panther","Sour","Grapes",1
+"Avengers: Infinity War","Working","Banana",3
+"Avengers: Infinity War","Sour","Grapes",4
+"Avengers: Infinity War","Mighty","Mango",1
+"Avengers: Infinity War","Sweet","Strawberry",2
+"Avengers: Infinity War","Moody","Melon",2
+"Avengers: Infinity War","Klever","Kiwi",3
+"Incredibles 2","Sweet","Strawberry",2
+"Incredibles 2","Moody","Melon",1
+"Incredibles 2","Klever","Kiwi",2
+"Incredibles 2","Sour","Grapes",5
+"Incredibles 2","Working","Banana",3
+"Incredibles 2","Mighty","Mango",1
+"Jurassic World: Fallen Kingdom","Moody","Melon",4
+"Jurassic World: Fallen Kingdom","Sour","Grapes",5
+"Jurassic World: Fallen Kingdom","Working","Banana",3
+"Jurassic World: Fallen Kingdom","Mighty","Mango",1
+"Jurassic World: Fallen Kingdom","Sweet","Strawberry",2
+"Jurassic World: Fallen Kingdom","Klever","Kiwi",3
+"Deadpool 2","Klever","Kiwi",5
+"Deadpool 2","Sweet","Strawberry",2
+"Deadpool 2","Mighty","Mango",1
+"Deadpool 2","Working","Banana",3
+"Deadpool 2","Sour","Grapes",5
+"Deadpool 2","Moody","Melon",4
+"Dr. Seuss' The Grinch (2018)","Sour","Grapes",5
+"Dr. Seuss' The Grinch (2018)","Sweet","Strawberry",3
+"Dr. Seuss' The Grinch (2018)","Working","Banana",5
+"Dr. Seuss' The Grinch (2018)","Mighty","Mango",4
+"Dr. Seuss' The Grinch (2018)","Klever","Kiwi",1
+"Dr. Seuss' The Grinch (2018)","Moody","Melon",2
