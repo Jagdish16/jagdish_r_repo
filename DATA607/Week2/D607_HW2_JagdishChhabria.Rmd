@@ -1,0 +1,29 @@
+---
+title: "D607_HW2_Jagdish_Chhabria"
+author: "Jagdish Chhabria"
+date: "February 9, 2019"
+output:
+  html_document:
+    df_print: paged
+---
+```{r}
+library(RCurl)
+x <- getURL("https://raw.githubusercontent.com/Jagdish16/jagdish_r_repo/master/DATA607/Week2/ratings.csv")
+ratings<-read.csv(text=x, header=T)
+ratings
+```
+
+
+```{r}
+library(DBI)
+library(RMySQL)
+library(RODBC)
+drv<-dbDriver('MySQL')
+#class(drv)
+con <- dbConnect(drv, dbname = "movies",host = "localhost",port=3306,user="ds607", password="")
+dbListTables(con)
+dbListFields(con, "ratings")
+ratings<-dbGetQuery(con, "SELECT * FROM RATINGS")
+print(ratings)
+```
+
