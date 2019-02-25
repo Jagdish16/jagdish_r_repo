@@ -1,0 +1,95 @@
+---
+title: "d607_project1_JagdishChhabria"
+author: "Jagdish Chhabria"
+date: "February 16, 2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r}
+library(readr)
+library(stringr)
+library(RCurl)
+# Set working directory, filepath and read the required input file. Other users can modify the working directory to one on their computer with the required input file
+wd <- getwd()
+setwd("C://Jagdish/Masters Programs/CUNY/DATA 607 Data Acquisition And Management/Week3")
+#wd
+#folder <- "c/Jagdish/Masters Programs/CUNY/DATA 607 Data Acquisition And Management/Week3"
+filepath<-file.path(wd,"tournamentinfo.txt")
+#fileurl <- getURL("https://raw.githubusercontent.com/Jagdish16/jagdish_r_repo/master/DATA607/Week3/tournamentinfo.txt")
+#work.file<-read.csv(text=fileurl)
+#chess.file<-readLines(work.file)
+chess.file<-readLines(filepath)
+
+player.name<-NULL
+player.points<-NULL
+opponent.r1<-NULL
+opponent.r2<-NULL
+opponent.r3<-NULL
+opponent.r4<-NULL
+opponent.r5<-NULL
+opponent.r6<-NULL
+opponent.r7<-NULL
+opponents<-NULL
+player.state<-NULL
+player.prerating<-NULL
+temp.vec<-NULL
+# initialize variables
+j=1
+n=1
+# Remove all the separating lines (------)
+for(j in seq_along(1:length(chess.file)))
+{
+  temp.vec<-c(temp.vec, str_detect(chess.file[j],"\\-{2,}",negate=TRUE))
+} 
+chessdata<-chess.file[temp.vec]
+
+# Read the first and second row for each player and then separate the different columns
+for(i in seq(from=3, to=length(chessdata), by=2))
+{
+  (line1<-unlist(str_extract_all(chessdata[i], "\\|?.+?\\|")))
+  (line2<-unlist(str_extract_all(chessdata[i+1], "\\|?.+?\\|")))
+
+player.name[n]<-as.character(str_extract_all(line1[[2]], "\\w+\\s\\w+"))
+player.points[n]<-as.numeric(str_extract_all(line1[[3]], "\\d\\.\\d"))
+opponent.r1[n]<-as.numeric((str_extract_all(line1[[4]], "\\d+")))
+opponent.r2[n]<-as.numeric(str_extract_all(line1[[5]], "\\d+"))
+opponent.r3[n]<-as.numeric(str_extract_all(line1[[6]], "\\d+"))
+opponent.r4[n]<-as.numeric(str_extract_all(line1[[7]], "\\d+"))
+opponent.r5[n]<-as.numeric(str_extract_all(line1[[8]], "\\d+"))
+opponent.r6[n]<-as.numeric(str_extract_all(line1[[9]], "\\d+"))
+opponent.r7[n]<-as.numeric(str_extract_all(line1[[10]], "\\d+"))
+player.state[n]<-as.character(str_extract(line2[[1]], "[[:alpha:]]{2}"))
+(player.prerating[n]<-as.integer(str_extract(str_extract(line2[[2]], "R:[[:space:]]+\\d+"), "\\d+")))
+n=n+1
+}
+# Combine the different columns into a dataframe
+tourinfo<-data.frame(player.name, player.state, player.points, player.prerating, opponent.r1, opponent.r2, opponent.r3, opponent.r4, opponent.r5, opponent.r6, opponent.r7)
+
+# Name the columns
+colnames(tourinfo)=c("player.name","player.state", "player.points","player.prerating", "opponent.r1", "opponent.r2", "opponent.r3","opponent.r4","opponent.r5","opponent.r6", "opponent.r7")
+
+# Add additional columns containing pre-rating of the opponents for each round
+tourinfo<-cbind(tourinfo, tourinfo$player.prerating[opponent.r1], tourinfo$player.prerating[opponent.r2],tourinfo$player.prerating[opponent.r3],tourinfo$player.prerating[opponent.r4],tourinfo$player.prerating[opponent.r5], tourinfo$player.prerating[opponent.r6],tourinfo$player.prerating[opponent.r7])
+
+# Name the columns
+colnames(tourinfo)=c("player.name","player.state", "player.points","player.prerating", "opponent.r1", "opponent.r2", "opponent.r3","opponent.r4","opponent.r5","opponent.r6", "opponent.r7", "opponent.r1.prerating", "opponent.r2.prerating", "opponent.r3.prerating","opponent.r4.prerating","opponent.r5.prerating","opponent.r6.prerating", "opponent.r7.prerating")
+
+# Calculate the average of all the opponents pre-rating for each player
+tourinfo$opponent.mean<-round(rowMeans(data.frame(tourinfo$opponent.r1.prerating,tourinfo$opponent.r2.prerating,tourinfo$opponent.r3.prerating,tourinfo$opponent.r4.prerating,tourinfo$opponent.r5.prerating,tourinfo$opponent.r6.prerating,tourinfo$opponent.r7.prerating),na.rm = TRUE),2)
+
+# Create a new dataframe with only the final, required columns
+chess.info<-data.frame(tourinfo$player.name,tourinfo$player.state, tourinfo$player.points, tourinfo$player.prerating, tourinfo$opponent.mean)
+
+# Rename columns
+colnames(chess.info)=c("player.name","player.state", "player.points","player.prerating", "opponent.mean.prerating")
+#chess.info
+
+# Write to a csv file
+write.csv(chess.info, file = "chessinfo.csv")
+
+```
+
+
