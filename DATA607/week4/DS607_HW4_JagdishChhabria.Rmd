@@ -1,0 +1,40 @@
+---
+title: "DS607_HW4_JagdishChhabria"
+author: "Jagdish Chhabria"
+date: "February 28, 2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+
+```{r}
+library(RCurl)
+library(tidyr)
+library(dplyr)
+library(reshape2)
+x<-getURL("https://raw.githubusercontent.com/Jagdish16/jagdish_r_repo/master/DATA607/Week5/airlinedelays.csv")
+airlinedata<-read.csv(text=x,header=TRUE)
+airlinedata
+```
+```{r}
+airline.delays<-gather(airlinedata, key="Destination", value=NumberofFlights, 3:7)
+colnames(airline.delays)<-c("Airline", "ArrivalStatus", "Destination", "NumberofFlights")
+#airline.delays
+airline.delays$Airline<-as.character(airline.delays$Airline)
+airline.delays$Destination<-as.character(airline.delays$Destination)
+airline.delays$ArrivalStatus<-as.character(airline.delays$ArrivalStatus)
+alaska.ontime<-filter(airline.delays, Airline=="ALASKA",ArrivalStatus=="on time")
+alaska.delayed<-filter(airline.delays, Airline=="ALASKA",ArrivalStatus=="delayed")
+amwest.ontime<-filter(airline.delays, Airline=="AMWEST",ArrivalStatus=="on time")
+amwest.delayed<-filter(airline.delays, Airline=="AMWEST",ArrivalStatus=="delayed")
+#alaska.info<-alaska %>% group_by(ArrivalStatus) %>% mutate(sum(NumberofFlights))
+alaska.delayed.prop<-sum(alaska.delayed$NumberofFlights)/(sum(alaska.ontime$NumberofFlights)+sum(alaska.delayed$NumberofFlights))
+alaska.delayed.prop
+amwest.delayed.prop<-sum(amwest.delayed$NumberofFlights)/(sum(amwest.ontime$NumberofFlights)+sum(amwest.delayed$NumberofFlights))
+amwest.delayed.prop
+cat("The analysis shows that a higher proportion of flights across all destinations were delayed for Alaska Airlines as compared to AMWest.")
+#air.info<-airline.delays %>% group_by(Airline,ArrivalStatus) %>% mutate(sum(NumberofFlights))
+#air.info
+
+```
