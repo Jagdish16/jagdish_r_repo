@@ -1,0 +1,90 @@
+---
+title: "DS607_Project2_JagdishChhabria-Part 1"
+author: "Jagdish Chhabria"
+date: "March 9, 2019"
+output: pdf_document
+---
+
+```{r}
+# This dataset is from the FBI website showing the numbers of violent crimes for 2015 and 2016. across different US states, regions and the USA as a whole
+library(dplyr)
+library(tidyr)
+library(RCurl)
+# Load the input data file
+infile<-getURL("https://raw.githubusercontent.com/Jagdish16/jagdish_r_repo/master/DATA607/week6/fbidata1.csv")
+#infile<-"C://Jagdish/Masters Programs/CUNY/DATA 607 Data Acquisition And Management/Week5/fbidata1.csv"
+fbidata<-read.csv(text=infile,header=TRUE)
+fbidata$Population<-as.numeric(fbidata$Population)
+fbidata
+# Clean up column names and fill in empty rows with the state and region names
+
+colnames(fbidata)<-c("Area","Year","Population","Violent Crime","Murder Manslaughter","Rape Revised Def","Rape Legacy Def","Robbery", "Assault","Property Crime","Burglary","Larceny","Motor Theft")
+n=nrow(fbidata)
+for(i in seq(from=1, to=nrow(fbidata), by=3))
+{
+  fbidata$Area[i+1]=fbidata$Area[i]
+  fbidata$Area[i+2]=fbidata$Area[i]
+}
+# Calculate the percentage change and print the interim dataset
+fbidata<-filter(fbidata,fbidata$Year!="Percent change")
+fbidata
+
+```
+
+```{r}
+# Tidy the wide dataset into a long dataset by introducing a new column showing the Type of Crime
+crime.data<-gather(fbidata, key="Type of Crime", value=Count, 4:13)
+crime.data$`Type of Crime`<-as.factor(crime.data$`Type of Crime`)
+crime.data$RatePer100000<-round(crime.data$Count*100000/crime.data$Population,0)
+
+# Remove unwanted variables
+crimedata<-crime.data[c(-3,-5)]
+crimedata
+# Spread the yearly data for 2015 and 2016 into 2 separate columns for easier comparison
+crimedata<-spread(crimedata,Year,RatePer100000)
+
+# Calculate the year-on-year percent change 
+crimedata$YoYPercentChange<-round(((crimedata$`2016`/crimedata$`2015`)-1)*100,2)
+
+#Print the tidy dataset
+crimedata
+
+assault<-crimedata%>%filter(crimedata$`Type of Crime`== "Assault")
+rape.revised.def<-crimedata%>%filter(crimedata$`Type of Crime`== "Rape Revised Def")
+rape.legacy.def<-crimedata%>%filter(crimedata$`Type of Crime`== "Rape Legacy Def")
+violent.crime<-crimedata%>%filter(crimedata$`Type of Crime`== "Violent Crime")
+murder.manslaughter<-crimedata%>%filter(crimedata$`Type of Crime`== "Murder Manslaughter")
+robbery<-crimedata%>%filter(crimedata$`Type of Crime`== "Robbery")
+larceny<-crimedata%>%filter(crimedata$`Type of Crime`== "Larceny")
+property.crime<-crimedata%>%filter(crimedata$`Type of Crime`== "Property Crime")
+burglary<-crimedata%>%filter(crimedata$`Type of Crime`== "Burglary")
+motor.theft<-crimedata%>%filter(crimedata$`Type of Crime`== "Motor Theft")
+
+# Do further analysis on which state/region has the highest count for each type of crime during 2016, per 100,000 people 
+
+max.assault<-filter(assault, assault$`2016`==max(assault$`2016`))
+max.rape.revised.def<-filter(rape.revised.def, rape.revised.def$`2016`==max(rape.revised.def$`2016`))
+max.rape.legacy.def<-filter(rape.legacy.def,rape.legacy.def$`2016`==max(rape.legacy.def$`2016`))
+max.violent.crime<-filter(violent.crime,violent.crime$`2016`==max(violent.crime$`2016`))
+max.murder.manslaughter<-filter(murder.manslaughter, murder.manslaughter$`2016`==max(murder.manslaughter$`2016`))
+max.robbery<-filter(robbery,robbery$`2016`==max(robbery$`2016`))
+max.larceny<-filter(larceny,larceny$`2016`==max(larceny$`2016`))
+max.property.crime<-filter(property.crime,property.crime$`2016`==max(property.crime$`2016`))
+max.burglary<-filter(burglary, burglary$`2016`==max(burglary$`2016`))
+max.motor.theft<-filter(motor.theft, motor.theft$`2016`==max(motor.theft$`2016`))
+
+# Print the details of which state/region has the highest rate per 100,000 people of each type of crime during 2016
+max.assault
+max.motor.theft
+max.burglary
+max.property.crime
+max.murder.manslaughter
+max.larceny
+max.rape.legacy.def
+max.rape.revised.def
+max.robbery
+max.violent.crime
+
+
+```
+
