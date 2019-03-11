@@ -1,0 +1,56 @@
+---
+title: "ds607_Project2_JagdishChhabria-Part2"
+author: "Jagdish Chhabria"
+date: "March 10, 2019"
+output: pdf_document
+---
+
+```{r}
+# This dataset pertains to the voting turnout for the Brexit Referendum carried out in 2016
+
+library(dplyr)
+library(tidyr)
+library(RCurl)
+# Load the input data file
+infile<-getURL("https://raw.githubusercontent.com/Jagdish16/jagdish_r_repo/master/DATA607/week6/referendum.csv")
+#infile<-"C://Jagdish/Masters Programs/CUNY/DATA 607 Data Acquisition And Management/Week5/referendum.csv"
+referendum<-read.csv(text=infile,header=TRUE)
+referendum
+
+```
+```{r}
+#Since the dataset has variables pertaining to different "groups" of variables from a contextual sense, it makes sense to split it into following normalized datasets: 1) Region identifiers 2) Voting Turnout Data 3) Invalid votes data 4) Leave vs Remain data
+
+region<-select(referendum,ID,Region.Code, Region, Area.Code, Area)
+voting<-select(referendum,ID,Electorate,Votes.Cast,Valid.Votes,Percent.Turnout)
+rejected<-select(referendum,ID,Rejected.Ballots,No.Official.Mark,Multiple.Marks,Writing.or.Mark,Unmarked.or.Void)
+brexit<-select(referendum,ID,Valid.Votes,Remain, Leave, Percent.Remain, Percent.Leave, )
+region
+voting
+rejected
+brexit
+
+
+```
+```{r}
+# It is important to have the region ID in all the normalized datasets, so that the data can be brought together using the "join" functions, as shown below:
+
+leave.remain<-left_join(region,brexit, by="ID")
+leave.remain
+
+
+
+```
+
+```{r}
+# The reasons for invalid votes constitutes a wide dataset, which can be optimized as shown below:
+invalid.reason<-gather(rejected, key="Rejection Reason", value=NumVotes, 3:6)
+invalid.reason
+```
+```{r}
+#Lastly, this dataset can be used to analyze which region had the highest percents for leave and remain respectively
+
+filter(leave.remain, leave.remain$Percent.Remain==max(brexit$Percent.Remain))
+filter(leave.remain, leave.remain$Percent.Leave==max(brexit$Percent.Leave))
+```
+
