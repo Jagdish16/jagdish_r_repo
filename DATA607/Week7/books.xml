@@ -9,14 +9,18 @@
 		 <authors author_1="John C. Hull"/>
 		 <publisher>Prentice Hall</publisher>
 		 <latest_publish_year>2008</latest_publish_year>
-
+	</book>
+	
+	<book id="2">
 		<title>Advanced Financial Risk Management</title>
 		 <isbn>978-1118278543</isbn>
 		 <edition>second</edition>
 		 <authors author_1="Donald R. Van Deventer" author_2="Kenji Imai" author_3="Mark Mesler"/>
 		 <publisher>Wiley</publisher>
 		 <latest_publish_year>2013</latest_publish_year>
-
+	</book>
+	
+	<book id="3">
 		<title>Introduction to Fixed Income Analytics</title>
 		 <isbn>978-0470572139</isbn>
 		 <edition>second</edition>
