@@ -1,0 +1,29 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+
+<finance_books>
+
+<book id="1">
+4 <title>Options, Futures and other Derivatives</title>
+5 <isbn>978-0136015864</isbn>
+  <edition>seventh</edition>
+6 <authors author_1="John C. Hull"/>
+7 <publisher>Prentice Hall</publisher>
+8 <latest_publish_year>2008</latest_publish_year>
+
+<title>Advanced Financial Risk Management</title>
+5 <isbn>978-1118278543</isbn>
+  <edition>second</edition>
+6 <authors author_1="Donald R. Van Deventer" author_2="Kenji Imai" author_3="Mark Mesler"/>
+7 <publisher>Wiley</publisher>
+8 <latest_publish_year>2013</latest_publish_year>
+
+<title>Introduction to Fixed Income Analytics</title>
+5 <isbn>978-0470572139</isbn>
+  <edition>second</edition>
+6 <authors author_1="Frank J. Fabozzi" author_2="Steven V. Mann"/>
+7 <publisher>Wiley</publisher>
+8 <latest_publish_year>2010</latest_publish_year>
+
+9 </book>
+
+</finance_books>
