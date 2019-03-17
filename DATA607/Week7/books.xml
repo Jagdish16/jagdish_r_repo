@@ -2,8 +2,7 @@
 
 <finance_books>
 
-<!--	<book id="1"-->
-	<book>
+	<book id="1">
 		<title>Options, Futures and other Derivatives</title>
 		<isbn>978-0136015864</isbn>
 		 <edition>seventh</edition>
@@ -12,8 +11,7 @@
 		 <latest_publish_year>2008</latest_publish_year>
 	</book>
 	
-<!--		<book id="2"-->
-	<book>
+	<book id="2">
 		<title>Advanced Financial Risk Management</title>
 		 <isbn>978-1118278543</isbn>
 		 <edition>second</edition>
@@ -22,8 +20,7 @@
 		 <latest_publish_year>2013</latest_publish_year>
 	</book>
 	
-<!--	<book id="3"-->
-	<book>
+	<book id="3">
 		<title>Introduction to Fixed Income Analytics</title>
 		 <isbn>978-0470572139</isbn>
 		 <edition>second</edition>
