@@ -1,0 +1,73 @@
+---
+title: "ds607_week7_JagdishChhabria"
+author: "Jagdish Chhabria"
+date: "March 16, 2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# This is the code chunk for reading in the HTML file into R as a data frame
+library(XML)
+library(RCurl)
+library(rvest)
+library(dplyr)
+
+#fileurl<-"C:\\Jagdish\\Masters Programs\\CUNY\\Data 607 Data Acquisition and Management\\Week7\\books.html"
+fileurl<-getURL("https://raw.githubusercontent.com/Jagdish16/jagdish_r_repo/master/DATA607/Week7/books.html")
+
+#books1<-readHTMLTable(doc=fileurl, trim=T, as.data.frame=T, header=T, Encoding="windows-1252")
+#books2<-htmlParse(file=fileurl, encoding = "windows-1252", as.data.frame=T)
+#books2<-read_html(fileurl, encoding = "UTF-8")
+#tables<-html_nodes(books2, "table")
+# table1 <- html_table(tables, fill = TRUE)
+
+booksdf <- as.data.frame(read_html(fileurl) %>% html_table(fill=TRUE))
+booksdf
+```
+
+
+
+
+```{r}
+# This is the code chunk for reading in the XML file into R as a data frame
+library(XML)
+library(RCurl)
+library(httr)
+
+#fileurl<-"C:\\Jagdish\\Masters Programs\\CUNY\\Data 607 Data Acquisition and Management\\Week7\\books1.xml"
+
+fileurl<-getURL("https://raw.githubusercontent.com/Jagdish16/jagdish_r_repo/master/DATA607/Week7/books1.xml")
+
+books<-xmlParse(file=fileurl)
+books_df<-xmlToDataFrame(books, stringsAsFactors = FALSE)
+books_df
+
+
+```
+
+```{r}
+# This is the code chunk for reading in the JSON file into R as a data frame
+library(jsonlite)
+library(dplyr)
+library(RCurl)
+
+#fileurl<-"C:\\Jagdish\\Masters Programs\\CUNY\\Data 607 Data Acquisition and Management\\Week7\\books5.json"
+fileurl<-getURL("https://raw.githubusercontent.com/Jagdish16/jagdish_r_repo/master/DATA607/Week7/books5.json")
+
+books.df<-fromJSON(fileurl) %>% as.data.frame
+books.df
+
+
+```
+
+The 3 dataframes are not completely identical. There are minor differences such as: 1) the "id" column missing in the dataframe converted from the html file; 2) capitalization of column names is different across the datafarmes created from html versus xml, while the column names for the dataframe created from the json file are pre-fixed by the name of the first object in the json file. Presumably these differences are on account of how the different handling functions work under the hood.
+
+
+
+
