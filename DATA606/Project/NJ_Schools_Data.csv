@@ -1,4 +1,4 @@
-﻿DistrictCode,SchoolCode,CountyCode,CountyName,DistrictName,SchoolName,SchoolType,TypeLabel,MathScore,ReadingWritingScore,TotalScore,DistrictMedianIncome
+DistrictCode,SchoolCode,CountyCode,CountyName,DistrictName,SchoolName,SchoolType,TypeLabel,MathScore,ReadingWritingScore,TotalScore,DistrictMedianIncome
 0110,010,1,ATLANTIC,ATLANTIC CITY,ATLANTIC CITY HIGH SCHOOL,Public,3,524,526,1050,26006
 0150,010,7,CAMDEN,AUDUBON BOROUGH,AUDUBON JUNIOR/SENIOR HIGH SCHOOL,Public,3,536,551,1087,75136
 0185,030,29,OCEAN,BARNEGAT TOWNSHIP,BARNEGAT HIGH SCHOOL,Public,3,556,548,1104,69877
